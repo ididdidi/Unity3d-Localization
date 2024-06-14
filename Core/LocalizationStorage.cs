@@ -9,8 +9,14 @@ namespace EasyAssetsLocalize
     [CreateAssetMenu(fileName = "New LocalizationStorage", menuName = "Localization Storage", order = 700)]
     internal class LocalizationStorage : ScriptableObject, IStorage
     {
+        [SerializeField, HideInInspector] private int version;
         [SerializeField, HideInInspector] private List<Language> languages = new List<Language>();
         [SerializeField, HideInInspector] private List<Localization> localizations = new List<Localization>();
+
+        /// <summary>
+        /// Returns the index of the current storage version.
+        /// </summary>
+        public int Version { get => version; }
 
         /// <summary>
         /// List of languages in array format.
@@ -148,6 +154,7 @@ namespace EasyAssetsLocalize
         /// </summary>
         public void SaveChanges()
         {
+            version++;
             LocalizationManager.SetStorage(this);
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);

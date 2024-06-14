@@ -115,8 +115,9 @@ namespace EasyAssetsLocalize
                 else { icon = defaults[i].Type.GetContent().image; level = 2; } // Initialize the icon according to the resource type and specify the level as 2.
 
                 // Find the default value for this type, create a new element and add it to the list of localizations.
-                var defValue = Storage.GetDefaultLocalization(defaults[i].Type);
-                newEntries.Add(new SearchTreeEntry(new GUIContent($"New {defValue.Type.Name} Localization", icon), level, defValue.Clone()));
+                var newValue = Storage.GetDefaultLocalization(defaults[i].Type).Clone();
+                newValue.Name = $"{newValue.Type.Name} Localization";
+                newEntries.Add(new SearchTreeEntry(new GUIContent($"New {newValue.Type.Name} Localization", icon), level, newValue));
             }
 
             newEntries.Sort((item0, item1) => item0.Name.CompareTo(item1.Name));

@@ -47,7 +47,7 @@ namespace EasyAssetsLocalize
             this.grabFocus = grabFocus;
         }
 
-        #region Settings
+        #region Properties
         public string SearchKeyword { get => searchTree?.keyword; private set => searchTree.keyword = value; }
         public SearchTreeEntry CurrentEntry { get; private set; }
         public System.Action<object> OnFocusEntry { get; set; }

@@ -60,7 +60,10 @@ namespace EasyAssetsLocalize
 				if (!isWideView)
 				{
 					isWideView = true;
-					if(currentView != settingsView) { searchView.Refresh(); }
+					if(currentView == searchView) {
+						currentView = typeView;
+						searchView.Refresh();
+					}
 				}
 
 				rect = new Rect(0, 0, 320, position.height);

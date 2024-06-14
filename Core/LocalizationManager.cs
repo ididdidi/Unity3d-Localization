@@ -8,9 +8,20 @@ namespace EasyAssetsLocalize
     public static class LocalizationManager
     {
         private static IStorage storage;
+        private static int storageVersion;
 
         /// <summary>
-        /// Link to Localization Storage
+        /// Static constructor. Used to subscribe to Undo(Ctrl+Z).
+        /// </summary>
+        static LocalizationManager() => UnityEditor.Undo.undoRedoPerformed += OnUndo;        
+
+        private static void OnUndo()
+        {
+            if(storageVersion != storage.Version) { SetStorage(Storage); }
+        }
+
+        /// <summary>
+        /// Link to Localization Storage.
         /// </summary>
         public static IStorage Storage { get => storage ?? ResetStorage(); private set => storage = value; }
 
@@ -39,6 +50,7 @@ namespace EasyAssetsLocalize
         public static void SetStorage(IStorage storage)
         {
             Storage = storage;
+            storageVersion = Storage.Version;
             OnStorageChange?.Invoke(Storage);
             OnLanguageChange?.Invoke(Language);
         }

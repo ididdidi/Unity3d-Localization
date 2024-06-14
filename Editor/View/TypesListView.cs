@@ -119,6 +119,7 @@ namespace EasyAssetsLocalize
                     Storage.RemoveAll(type);
                     //LocalizationBuilder.RemoveComponent(type);
                 }
+                else { return; }
             }
             reorderable.list.RemoveAt(reorderable.index--);
         }

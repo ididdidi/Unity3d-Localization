@@ -75,9 +75,9 @@ namespace EasyAssetsLocalize
         /// </summary>
         /// <param name="type">Type of localized resources</param>
         /// <param name="resources">List of localized resources</param>
-        public Localization(System.Type type, IEnumerable<IResource> resources)
+        public Localization(string name, System.Type type, IEnumerable<IResource> resources)
         {
-            this.name = $"{type.Name} Localization";
+            this.name = name;
             this.serializableType = new SerializableType(type);
             this.resources = new List<IResource>(resources);
         }
@@ -93,7 +93,24 @@ namespace EasyAssetsLocalize
             {
                 resources[i] = Resources[i].Clone();
             }
-            return new Localization(Type, resources);
+            return new Localization(name, Type, resources);
+        }
+
+        /// <summary>
+        /// Method for copying data from one instance to another.
+        /// </summary>
+        /// <param name="destination">Another localization instance</param>
+        public void CopyTo(ref Localization destination)
+        {
+            if(destination == null) { destination = Clone(); return; }
+
+            destination.name = name;
+            destination.serializableType = serializableType;
+            destination.resources = new List<IResource>(Resources.Count);
+            for (int i = 0; i < Resources.Count; i++)
+            {
+                destination.resources.Add(Resources[i].Clone());
+            }
         }
     }
 }

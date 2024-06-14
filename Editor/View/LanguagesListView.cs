@@ -47,14 +47,14 @@ namespace EasyAssetsLocalize
         /// <param name="isFocused">Is the list item on focused?</param>
         private void DrawLanguage(Rect position, int index, bool isActive, bool isFocused)
         {
-            var rect = new Rect(position);
+            Rect rect = new Rect(position);
             rect.width = 156f;
             rect.x -= 2f;
             rect.y += 1f;
-            var language = (Language)list[index];
+            Language language = (Language)list[index];
             
             EditorGUI.BeginChangeCheck();
-            var systemLanguage = EditorGUI.EnumPopup(rect, language.SystemLanguage);
+            SystemLanguage systemLanguage = (SystemLanguage)EditorGUI.EnumPopup(rect, language.SystemLanguage);
             if (EditorGUI.EndChangeCheck()) 
             {
                 Undo.RecordObject((Object)storage, $"Rename {language.SystemLanguage} to {systemLanguage}");
@@ -82,7 +82,7 @@ namespace EasyAssetsLocalize
         /// <param name="list">This <see cref="ReorderableList"/></param>
         private void RemoveLanguage(ReorderableList list)
         {
-            var language = list.list[list.index] as Language;
+            Language language = list.list[list.index] as Language;
             if (EditorExtends.DeleteConfirmation(language.SystemLanguage.ToString()))
             {
                 Undo.RecordObject((Object)storage, $"Remove {language.SystemLanguage}");

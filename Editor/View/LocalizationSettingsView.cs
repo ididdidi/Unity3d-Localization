@@ -37,6 +37,21 @@ namespace EasyAssetsLocalize
             GUILayout.BeginArea(position);
 
             GUILayout.BeginVertical();
+            
+            DrawHeader();
+            DrawSettings(position.width > MIN_WIDTH);
+
+            GUILayout.EndVertical();
+            GUILayout.EndArea();
+
+            HandleKeyboard(Event.current);
+        }
+
+        /// <summary>
+        /// Draws a header for the view.
+        /// </summary>
+        private void DrawHeader()
+        {
             GUILayout.Space(2);
             GUILayout.BeginHorizontal(EditorStyles.inspectorFullWidthMargins);
 
@@ -59,11 +74,16 @@ namespace EasyAssetsLocalize
 
             GUILayout.EndHorizontal();
             GUILayout.Space(4);
+        }
 
+        /// <summary>
+        /// Renders the current plugin settings.
+        /// </summary>
+        /// <param name="horizontalPositioning">Horizontal arrangement of settings lists</param>
+        private void DrawSettings(bool horizontalPositioning)
+        {
             scrollPosition = GUILayout.BeginScrollView(scrollPosition, EditorStyles.inspectorFullWidthMargins);
-
-            var horizontal = position.width > MIN_WIDTH;
-            if (horizontal) { GUILayout.BeginHorizontal(); }
+            if (horizontalPositioning) { GUILayout.BeginHorizontal(); }
 
             // Show Languages ReorderableList
             GUILayout.BeginVertical();
@@ -75,12 +95,8 @@ namespace EasyAssetsLocalize
             typesList.DoLayoutList();
             GUILayout.EndVertical();
 
-            if (horizontal) { GUILayout.EndHorizontal(); }
+            if (horizontalPositioning) { GUILayout.EndHorizontal(); }
             GUILayout.EndScrollView();
-            GUILayout.EndVertical();
-            GUILayout.EndArea();
-
-            HandleKeyboard(Event.current);
         }
 
         /// <summary>

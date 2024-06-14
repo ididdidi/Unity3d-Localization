@@ -8,6 +8,11 @@ namespace EasyAssetsLocalize
     public interface IStorage
     {
         /// <summary>
+        /// Returns the index of the current repository version.
+        /// </summary>
+        int Version { get; }
+
+        /// <summary>
         /// List of localizations.
         /// </summary>
         List<Language> Languages { get; }
